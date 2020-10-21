@@ -25,7 +25,7 @@
 			<% end %>
 			</span>
 			<div class="comment">
-				<p><%= @blog.comments.count %>件コメント</p>
+				<p><%= @blog.blog_comments.count %>件コメント</p>
 			</div>
 			</p>
 		</ul>
@@ -39,11 +39,11 @@
 			<% if @comments.any? %>
 				<% @blog.comments.each do |comment| %>
 					<div class="comment-user">
-						<p><%= link_to "#{comment.user.name}さん", user_path(comment.user.id) %>
-						<%= comment.comment_text %></p>
+						<p><%= link_to "#{blog_comment.user.name}さん", user_path(blog_comment.user.id) %>
+						<%= blog_comment.comment_text %></p>
 					</div>
 
-					<span class= "comment-date"><%= comment.created_at.strftime("%Y/%m/%d") %></span>
+					<span class= "comment-date"><%= blog_comment.created_at.strftime("%Y/%m/%d") %></span>
 				<% end %>
 			<% end %>
 			</br>
@@ -55,10 +55,10 @@
 
 			<% if @comment.errors.any? %>
 				<div id="error_explanation">
-					<h2><%= pluralize(@comment.errors.count, "件のエラーが発生しました") %></h2>
+					<h2><%= pluralize(@blog_comment.errors.count, "件のエラーが発生しました") %></h2>
 
 					<ul>
-						<% @comment.errors.full_messages.each do |message| %>
+						<% @blog_comment.errors.full_messages.each do |message| %>
 							<li><% message %></li>
 						<% end %>
 					</ul>
@@ -68,11 +68,11 @@
 		<!--コメントエラーここまで-->
 		</br>
 		<% if user_signed_in? %>
-			<%= form_for [@blog, @comment] do |f| %>
+			<%= form_for [@blog, @blog_comment] do |f| %>
 
 				<div class="row">
 					<div class="col-sm-12">
-						<%= f.text_area :comment_post, rows:'5', class: "form-control", placeholder:"コメントをここに" %>
+						<%= f.text_area :comment_text, rows:'5', class: "form-control", placeholder:"コメントをここに" %>
 					</div>
 				</div>
 				<br>
